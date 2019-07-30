@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Link, Route } from "react-router-dom";
+import loadable from "@loadable/component";
+
+const Home = loadable(() => import("./page/Home"));
+const About = loadable(() => import("./page/About"));
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ul>
+        <li>
+          <Link to="/home">홈</Link>
+          <Link to="/about">About</Link>
+        </li>
+      </ul>
+      <div>
+        <Route path="/home" component={Home} />
+        <Route path="/about" component={About} />
+      </div>
+    </>
   );
-}
+};
 
 export default App;
