@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import ReactDOMServer from "react-dom/server";
 import Koa, { Middleware } from "koa";
 import Router from "koa-router";
@@ -7,6 +7,7 @@ import path from "path";
 import App from "./App";
 import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 import { StaticRouter } from "react-router-dom";
+import Html from "./server/Html";
 
 const statsFile = path.join("../build", "loadable-stats.json");
 
@@ -39,24 +40,27 @@ const createPage = (
 };
 
 const render: Middleware = async (ctx, next) => {
+  const context = {};
   const extractor = new ChunkExtractor({ statsFile });
-  const scriptTags = extractor.getScriptTags();
-  const linkTags = extractor.getLinkTags();
-  const styleTags = extractor.getStyleTags();
+  const scriptTags = extractor.getScriptElements();
+  const linkTags = extractor.getLinkElements();
+  const styleTags = extractor.getStyleElements();
   const jsx = extractor.collectChunks(
     <ChunkExtractorManager extractor={extractor}>
-      <StaticRouter location={ctx.path}>
-        <App />
+      <StaticRouter location={ctx.path} context={context}>
+        <Html linkTags={linkTags} scriptTags={scriptTags} styleTags={styleTags}>
+          <App />
+        </Html>
       </StaticRouter>
     </ChunkExtractorManager>
   );
-  const html = ReactDOMServer.renderToStaticMarkup(jsx);
+  ReactDOMServer.renderToNodeStream(jsx).pipe(ctx.res);
 
-  ctx.body = createPage(html, {
-    scriptTags,
-    linkTags,
-    styleTags
-  });
+  // ctx.body = createPage(html, {
+  //   scriptTags,
+  //   linkTags,
+  //   styleTags
+  // });
 };
 
 const app = new Koa();

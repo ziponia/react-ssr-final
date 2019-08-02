@@ -1,8 +1,8 @@
 # 꼭 SSR 한다... 이해하고 말겠다.............. 후............. 몇번째야 진심
 
 - [x] react ssr
-- [ ] react-router ssr
-- [ ] styled-components ssr
+- [x] react-router ssr (개발환경은 어떻게 구성...?)
 - [ ] react-redux ssr
 - [ ] react-saga ssr
+- [ ] styled-components ssr
 - [ ] mysql in server

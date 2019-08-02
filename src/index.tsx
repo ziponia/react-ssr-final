@@ -4,7 +4,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <BrowserRouter>
     <App />
   </BrowserRouter>,

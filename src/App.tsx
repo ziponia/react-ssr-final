@@ -2,8 +2,8 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 import loadable from "@loadable/component";
 
-const Home = loadable(() => import("./page/Home"));
-const About = loadable(() => import("./page/About"));
+const Home = loadable(/* #__LOADABLE__ */ () => import("./page/Home"));
+const About = loadable(/* #__LOADABLE__ */ () => import("./page/About"));
 
 const App: React.FC = () => {
   return (
