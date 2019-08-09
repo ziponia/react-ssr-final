@@ -1,9 +1,11 @@
 import React, { ReactElement } from "react";
+import { RootState } from "../module";
 
 type Props = {
   scriptTags: Array<ReactElement<{}>>;
   linkTags: Array<ReactElement<{}>>;
   styleTags: Array<ReactElement<{}>>;
+  preloadedState: RootState;
 };
 const Html: React.FC<Props> = props => (
   <html lang="ko">
@@ -19,6 +21,10 @@ const Html: React.FC<Props> = props => (
     </head>
     <body>
       <div id="root">{props.children}</div>
+      <script>
+        window.__PRELOADED_STATE__=
+        {JSON.stringify(props.preloadedState).replace(/</g, "\\u003c")}
+      </script>
       {props.scriptTags}
     </body>
   </html>

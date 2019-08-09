@@ -2,7 +2,7 @@
 
 - [x] react ssr
 - [x] react-router ssr (개발환경은 어떻게 구성...?)
-- [ ] react-redux ssr
+- [ ] react-redux ssr - progress
 - [ ] react-saga ssr
 - [ ] styled-components ssr
 - [ ] mysql in server
